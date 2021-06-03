@@ -1,9 +1,40 @@
 <?php 
-// shortcode social footer
-function myshortcode_footer()
+// shortcode social header info
+function myshortcode_header_info()
 {
 	ob_start();
-	if (get_option('footer_fb') || get_option('footer_google') || get_option('footer_twitter') || get_option('footer_pinterest'))
+	if (get_option('phone') || get_option('address_header') || get_option('meta_des'))
+	{
+		?>
+		<ul>
+			
+			<?php if (get_option('phone'))
+			{ ?>
+				<li><p><?php echo get_option('phone'); ?></p></li>
+				<?php
+			} ?>
+			<?php if (get_option('address_header'))
+			{ ?>
+				<li><p><?php echo get_option('address_header'); ?></p></li>
+				<?php
+			} ?>
+			<?php if (get_option('meta_des'))
+			{ ?>
+				<li><p><?php echo get_option('meta_des'); ?></p></li>
+				<?php
+			} ?>
+		</ul>
+		<?php
+	}
+	return ob_get_clean();
+}
+add_shortcode('social_header_info', 'myshortcode_header_info');
+
+// shortcode social footer
+function myshortcode_header()
+{
+	ob_start();
+	if (get_option('footer_fb') || get_option('footer_twitter') || get_option('footer_ytb') || get_option('footer_instagram'))
 	{
 		?>
 		<ul>
@@ -13,19 +44,19 @@ function myshortcode_footer()
 				<li><a href="<?php echo get_option('footer_fb'); ?>" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
 				<?php
 			} ?>
-			<?php if (get_option('footer_google'))
-			{ ?>
-				<li><a href="<?php echo get_option('footer_google'); ?>" target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-				<?php
-			} ?>
-			<?php if (get_option('footer_pinterest'))
-			{ ?>
-				<li><a href="<?php echo get_option('footer_pinterest'); ?>" target="_blank"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
-				<?php
-			} ?>
 			<?php if (get_option('footer_twitter'))
 			{ ?>
 				<li><a href="<?php echo get_option('footer_twitter'); ?>" target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+				<?php
+			} ?>
+			<?php if (get_option('footer_ytb'))
+			{ ?>
+				<li><a href="<?php echo get_option('footer_ytb'); ?>" target="_blank"><i class="fa fa-youtube" aria-hidden="true"></i></a></li>
+				<?php
+			} ?>
+			<?php if (get_option('footer_instagram'))
+			{ ?>
+				<li><a href="<?php echo get_option('footer_instagram'); ?>" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
 				<?php
 			} ?>
 		</ul>
@@ -33,7 +64,7 @@ function myshortcode_footer()
 	}
 	return ob_get_clean();
 }
-add_shortcode('social_footer', 'myshortcode_footer');
+add_shortcode('social_header', 'myshortcode_header');
 
 // shortcode social single page
 function myshortcode_social_single_page()
@@ -134,3 +165,43 @@ function myshortcode_baivietmoi_footer(){
 			return ob_get_clean();
 		}
 		add_shortcode('sc_baivietmoi_homepage','myshortcode_baivietmoi_homepage');
+
+						// shortcode phanhoikhachhang homepage
+		function myshortcode_phkh_homepage(){ 
+			ob_start();?>
+			<div class="qb_phkh_homepage">
+				<?php $phkh_arg = array(
+					'post_type' => 'customers',
+					'order' => 'ASC',
+					'orderby' => 'date',
+					'post_status' => 'publish',
+					'posts_per_page' => 3
+				);
+				$phkh_query = new WP_Query($phkh_arg);
+				if($phkh_query->have_posts()) : ?>
+					<ul class="row">
+						<?php while ($phkh_query->have_posts()) : $phkh_query->the_post(); ?>
+							<li class="col-sm-4">
+								<div class="phkh_ct">
+									<h3><?php the_title(); ?></h3>
+									<?php  global $post;
+									$address = get_post_meta($post->ID,'_address', true); ?>
+									<span class="address"><?php echo $address; ?></span>
+									<?php 
+									$phkh_image = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), $size = 'large'); ?>
+									<figure><img src="<?php echo $phkh_image[0] ?>"></figure>
+									<div class="customer_ct"><?php the_content(); ?></div>
+								</div>
+							</li>
+						<?php endwhile; 
+						wp_reset_postdata();
+						?>
+					</ul>
+					<?php else : echo 'No data'; 
+					endif; ?>
+
+				</div>
+				<?php 
+				return ob_get_clean();
+			}
+			add_shortcode('sc_phkh_homepage','myshortcode_phkh_homepage');

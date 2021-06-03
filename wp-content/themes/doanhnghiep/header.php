@@ -3,8 +3,8 @@
 <head>
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!--    <title>Tạp chí Doanh nghiệp Việt Nam, Đọc báo tin tức doanh nghiệp - Doanh nghiệp Việt Nam</title>
-   <meta name="keywords" content="Tin tuc doanh nghiep, Doanh nghiep viet nam, Bao doanh nghiep, bao doanh nhan, Doc bao, Kinh doanh, doanh nhan Viet Nam, Tin tuc cap nhat 24h, Tin tuc, Tintuc, tin moi, tin mới, tin 24h, đọc báo, tin tuc online, tin tuc cap nhat, tin tuc moi, tin moi cap nhat, tin trong ngay" />
+   <title>woodpellets</title>
+  <!--  <meta name="keywords" content="Tin tuc doanh nghiep, Doanh nghiep viet nam, Bao doanh nghiep, bao doanh nhan, Doc bao, Kinh doanh, doanh nhan Viet Nam, Tin tuc cap nhat 24h, Tin tuc, Tintuc, tin moi, tin mới, tin 24h, đọc báo, tin tuc online, tin tuc cap nhat, tin tuc moi, tin moi cap nhat, tin trong ngay" />
    <meta name="description" content="Tin tức doanh nghiệp Việt Nam, thông tin về các doanh nghiệp, doanh nhân, cơ hội kinh doanh, xúc tiến thương mại cho cộng đồng doanh nghiệp Việt Nam" /> -->
    <!-- css -->
    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/slick.css">
@@ -28,6 +28,8 @@
       <div class="header">
          <div class="top_header">
             <div class="container">
+               <div class="header_info"><?php echo do_shortcode('[social_header_info]') ?></div>
+               <div class="header_social"><?php echo do_shortcode('[social_header]'); ?></div>              
             </div>
          </div>
          <div class="bottom_header">
@@ -82,16 +84,17 @@
                   <div class="banner_ct">
                     <h1> <?php the_title(); ?></h1>
                     <span> <?php the_content(); ?></span>
-                  </div>
-               </li>
-            <?php endwhile;?>
-            <?php wp_reset_postdata(); ?>
-         </ul>
-         <?php else : echo 'No data';
-         endif;   
-         ?>
-      </div>
-   <?php } ?>
+                 </div>
+              </li>
+           <?php endwhile;?>
+           <?php wp_reset_postdata(); ?>
+        </ul>
+        <?php else : echo 'No data';
+        endif;   
+        ?>
+     </div>
+  <?php } ?>
 </header>
 </body>
 </html>
+

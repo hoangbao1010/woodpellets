@@ -57,55 +57,22 @@ add_action( 'save_post', 'prfx_meta_save' );
 
 // end metabox check box
 
-// metabox social author
-function meta_box_social(){
-add_meta_box('thong-tin','Social','meta_output','post');
-add_meta_box('job-parnter','Job','job_output','post');
+// metabox address customer
+function meta_box_address_customer(){
+add_meta_box('address-customer','Address','address_output','customers');
 }
-add_action('add_meta_boxes','meta_box_social');
-function meta_output($post){
-  $facebook = get_post_meta($post->ID, '_facebook', true);
-  $twitter = get_post_meta($post->ID, '_twitter', true);
-  $ggplus = get_post_meta($post->ID, '_ggplus', true);
-  $pinterest = get_post_meta($post->ID, '_pinterest', true);
-  ?>
-  <div class="list_item_social">
-    <label for="facebook">Facebook</label>
-    <input type="text" id="facebook" name="facebook" value="<?php echo $facebook; ?>"  style="width: 100%;">
-  </div>
-  <div class="list_item_social">
-    <label for="twitter">Twitter</label>
-    <input type="text" id="twitter" name="twitter" value="<?php echo $twitter; ?>"  style="width: 100%;">
-  </div>
-  <div class="list_item_social">
-    <label for="ggplus">Google Plus</label>
-    <input type="text" id="ggplus" name="ggplus" value="<?php echo $ggplus; ?>"  style="width: 100%;">
-  </div>
-  <div class="list_item_social">
-    <label for="pinterest">Pinterest</label>
-    <input type="text" id="pinterest" name="pinterest" value="<?php echo $pinterest; ?>"  style="width: 100%;">
-  </div>
-  <?php 
-}
-function job_output($post){
-  $job = get_post_meta($post->ID,'_job', true); ?>
-  <input type="text" id="job" name="job" value="<?php echo $job; ?>"  style="width: 100%;">
+add_action('add_meta_boxes','meta_box_address_customer');
+function address_output($post){
+  $address = get_post_meta($post->ID,'_address', true); ?>
+  <input type="text" id="address" name="address" value="<?php echo $address; ?>"  style="width: 100%;">
   <?php
 }
 function meta_box_save($post_id){
- $facebook = isset($_POST['facebook']) ? $_POST['facebook'] : '';
- $twitter = isset($_POST['twitter']) ? $_POST['twitter'] : '';
- $ggplus = isset($_POST['ggplus']) ? $_POST['ggplus'] : '';
- $pinterest = isset($_POST['pinterest']) ? $_POST['pinterest'] : '';
- $job = isset($_POST['job']) ? $_POST['job'] : '';
- update_post_meta( $post_id, '_facebook', $facebook );
- update_post_meta( $post_id, '_twitter', $twitter );
- update_post_meta( $post_id, '_ggplus', $ggplus );
- update_post_meta( $post_id, '_pinterest', $pinterest );
- update_post_meta( $post_id, '_job', $job );
+ $address = isset($_POST['address']) ? $_POST['address'] : '';
+ update_post_meta( $post_id, '_address', $address );
 }
 add_action('save_post' , 'meta_box_save');
 
-// end metabox social author
+// end metabox address customer
 ?>
 
